@@ -10,7 +10,8 @@ logging.basicConfig(
     filemode="a",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    datefmt="%y-%m-%d %H:%M:%S"
+    datefmt="%Y-%m-%d %H:%M:%S",
+    encoding="utf-8"
 )
 
 
@@ -47,6 +48,7 @@ def verificar_ambiente():
     print(f"Espaço livre: {livre_gb:.2f}GB")
     if pouco_espaco:
         print("\nALERTA: pouco espaço livre em disco. Verifique os requisitos antes de instalar aplicativos.")
+        print("\nNão é recomendável prosseguir com a instalação.\n")
         logging.warning("Pouco espaço livre em disco.")
     else:
         print("\nEspaço livre para instalar. ")
@@ -60,8 +62,18 @@ def iniciar_instalacao():
     print("Iniciando instalação...")
 
 def consultar_logs(): 
-    print("Consultando logs...")
 
+    caminho_log = "log/assist_desenvolvimento.log"
+
+    print("Consultando logs...")
+    print("\n============================= CONSULTA DE LOGS ===================================\n")
+
+    if os.path.exists(caminho_log):
+        with open(caminho_log, "r", encoding="utf-8") as arquivo:
+            conteudo = arquivo.read()
+            print(conteudo)
+    else:
+        print("Não há logs registrados.")
 while True:
 
     exibir_menu()
